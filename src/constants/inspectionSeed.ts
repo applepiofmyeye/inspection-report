@@ -1,6 +1,6 @@
-import { InspectionRow } from "../types/inspection";
+import { InspectionFromDb } from "../types/inspection";
 
-export const inspectionSeed: InspectionRow[] = [
+export const inspectionSeed: InspectionFromDb[] = [
     {
       id: "INV001",
       status: "approved",

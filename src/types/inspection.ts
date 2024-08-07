@@ -1,4 +1,4 @@
-export interface InspectionRow {
+export interface InspectionFromDb {
     id: string;
     car: string; // brand, model, year
     status: "pending" | "approved" | "rejected";
