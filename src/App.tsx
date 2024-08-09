@@ -1,8 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/home/page";
-import { useSeedInspection } from "./hooks/useSeedInspection";
-import { useSeedCriteria } from "./hooks/useSeedCriteria";
 
 function App() {
   return (

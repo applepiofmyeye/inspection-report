@@ -4,7 +4,6 @@ import { getAndCreateInspectionCriteriaBatch } from "../actions/createInspection
 
 export const useSeedCriteriaByInspection = (inspectionId: string) => useMutation({
     mutationFn: async () => {
-        console.log("Seeding criteria...");
         let criteriaData = [];
         for (const criteria of CHECK_LIST) {
             criteriaData.push({
@@ -16,6 +15,5 @@ export const useSeedCriteriaByInspection = (inspectionId: string) => useMutation
         }
         return await getAndCreateInspectionCriteriaBatch(criteriaData, inspectionId);
     },
-    onSuccess: () => { console.log("Successfully seeded criteria") },
     onError: (error) => { console.error("Error seeding criteria:", error) },
 });

@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "../../components/ui/button";
+import { useState, useTransition } from "react";
 import {
   Sheet,
   SheetContent,
@@ -17,18 +16,55 @@ import { Skeleton } from "../../components/ui/skeleton";
 import { CriteriaByInspection } from "../../types/criteria";
 import { InspectionFromDb } from "../../types/inspection";
 
-import { Label } from "../../components/ui/label";
-import { ScrollArea } from "../../components/ui/scroll-area";
-import { useSeedCriteriaByInspection } from "../../hooks/useSeedCriteriaByInspection";
-import { camelCaseToTitleCase } from "../../lib/camelCaseToTitleCase";
+import { setCriteriaByInspection } from "../../actions/setCriteriaByInspection";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "../../components/ui/accordion";
-import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
 import { Badge } from "../../components/ui/badge";
+import { Label } from "../../components/ui/label";
+import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
+import { ScrollArea } from "../../components/ui/scroll-area";
+import { useSeedCriteriaByInspection } from "../../hooks/useSeedCriteriaByInspection";
+import { camelCaseToTitleCase } from "../../lib/camelCaseToTitleCase";
+
+import { ToggleGroup, ToggleGroupItem } from "../../components/ui/toggle-group";
+import { useSetInspectionStatus } from "../../hooks/useSetInspectionStatus";
+
+export function ToggleStatusGroup({
+  inspection,
+}: {
+  inspection: InspectionFromDb;
+}) {
+  const [value, setValue] = useState<"approved" | "rejected" | "pending">(
+    inspection.status
+  );
+  const { mutate: setInspectionStatus } = useSetInspectionStatus();
+  return (
+    <ToggleGroup
+      type="single"
+      size={"sm"}
+      variant={"outline"}
+      value={value}
+      onValueChange={(value: "approved" | "rejected" | "pending") => {
+        setInspectionStatus({ inspectionId: inspection.id, status: value }); // todo: take in value and insperction id
+        setValue(value);
+      }}
+    >
+      <ToggleGroupItem value="approved" className="rounded-full">
+        <Label>Approve</Label>
+      </ToggleGroupItem>
+      <ToggleGroupItem value="pending" className="rounded-full">
+        <Label>Pending</Label>
+      </ToggleGroupItem>
+      <ToggleGroupItem value="rejected" className="rounded-full">
+        <Label>Reject</Label>
+      </ToggleGroupItem>
+    </ToggleGroup>
+  );
+}
 
 export function TableRowSheet({
   inspection,
@@ -43,19 +79,34 @@ export function TableRowSheet({
     <Sheet>
       <SheetTrigger asChild>
         <TableRow key={inspection.id} onClick={onClick}>
-          <TableCell className="font-medium">{inspection.id}</TableCell>
-          <TableCell>{inspection.status}</TableCell>
-          <TableCell>{inspection.car}</TableCell>
-          <TableCell className="text-right">{inspection.date}</TableCell>
+          <TableCell className="font-light text-xs">
+            {inspection.date}
+          </TableCell>
+          <TableCell className="font-semibold">{inspection.car}</TableCell>
+          <TableCell className="text-right">
+            <Badge
+              className={`${
+                inspection.status === "approved"
+                  ? "bg-green-200"
+                  : inspection.status === "rejected"
+                  ? "bg-red-200"
+                  : "bg-orange-200"
+              }`}
+              variant={"secondary"}
+            >
+              {camelCaseToTitleCase(inspection.status)}
+            </Badge>
+          </TableCell>
         </TableRow>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="md:w-20vw">
         <SheetHeader>
           <SheetTitle>{inspection.car}</SheetTitle>
           <SheetDescription className="pb-4">
             <p className="text-xs">{inspection.date}</p>
             <p className="text-xs">{inspection.location}</p>
           </SheetDescription>
+          <ToggleStatusGroup inspection={inspection} />
         </SheetHeader>
         {/* 
         title: get from inspection (car details)
@@ -113,6 +164,23 @@ function AccordionCriteriaItem({
   inspectionCriteria: CriteriaByInspection;
 }) {
   const [score, setScore] = useState(inspectionCriteria.score.toString());
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isPending, startTransition] = useTransition();
+  const updateScore = (score: number) => {
+    startTransition(() => {
+      setScore(score.toString());
+      setCriteriaByInspection(
+        inspectionCriteria.criteriaId,
+        inspectionCriteria.inspectionId,
+        score
+      )
+        .then(() => {})
+        .catch((error) => {
+          // Handle any errors here
+          console.error("Error updating score:", error);
+        });
+    });
+  };
   return (
     <Accordion type="single" collapsible className={"w-full"}>
       <AccordionItem value="item-1">
@@ -130,6 +198,7 @@ function AccordionCriteriaItem({
             value={score}
             onValueChange={(value) => {
               setScore(value);
+              updateScore(Number(value));
             }}
             className="flex space-x-4 align-center justify-center w-full"
           >

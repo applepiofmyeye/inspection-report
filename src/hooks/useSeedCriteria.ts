@@ -4,7 +4,6 @@ import { CHECK_LIST } from "../constants/checklist";
 
 export const useSeedCriteria = () => useMutation({
     mutationFn: async () => {
-        console.log("Seeding criteria...");
         let criteriaData = [];
         for (const criteria of CHECK_LIST) {
             criteriaData.push({
