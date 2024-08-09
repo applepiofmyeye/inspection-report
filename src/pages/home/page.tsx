@@ -45,7 +45,7 @@ import { Input } from "../../components/ui/input";
 import { ToggleGroup, ToggleGroupItem } from "../../components/ui/toggle-group";
 import { Label } from "../../components/ui/label";
 import { useCreateInspection } from "../../hooks/useCreateInspection";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useEffect, useState, useTransition } from "react";
 import { Trash } from "lucide-react";
 
