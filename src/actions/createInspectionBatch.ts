@@ -3,7 +3,7 @@ import { InspectionFromDb } from "../types/inspection";
 
 export const createInspectionBatch = async (inspections: InspectionFromDb[]) => {
     try {
-      const response = await fetch("http://localhost:3000/inspections/batch", {
+      const response = await fetch("http://localhost:8084/inspections/batch", {
     method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,6 @@
 export const deleteCriteria = async ({id}: { id: string }) => {
     try {
-      const response = await fetch("http://localhost:3000/criteria/" + id, {
+      const response = await fetch("http://localhost:8084/criteria/" + id, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

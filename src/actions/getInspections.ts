@@ -1,6 +1,6 @@
 export const getInspections = async (status?: string) => {
     try {
-      const response = await fetch(`http://localhost:3000/inspections/${status ?? ""}`, { 
+      const response = await fetch(`http://localhost:8084/inspections/${status ?? ""}`, { 
         method: "GET",
         headers: {
           "Content-Type": "application/json",

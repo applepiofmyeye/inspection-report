@@ -1,7 +1,7 @@
 
 
 export const setInspectionStatus = async (inspectionId : string, status: string) => {
-  const response = await fetch("http://localhost:3000/inspections/" + inspectionId , {
+  const response = await fetch("http://localhost:8084/inspections/" + inspectionId , {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
