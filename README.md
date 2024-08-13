@@ -1,4 +1,6 @@
 # Inspection Report Dashboard
+This project was made to learn how to deploy a frontend and backend (monolithic project) on AWS EC2. 
+The backend of this project is [here](https://github.com/applepiofmyeye/express-server-inspection-report). 
 
 This is a dashboard as a recreation of the first Inspection Report Dashboard I made for Vucar. The main aim of this project is to focus on how to build an API server and how to display it in a dashboard. Both the API server and the dashboard are deployed by Nginx, hosted on an AWS EC2 instance. The website can be found at (joey.vucar.vn)[http://joey.vucar.vn].
 
