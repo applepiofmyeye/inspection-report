@@ -2,7 +2,7 @@ import { CriteriaByInspection } from "../types/criteria";
 
 export const getAndCreateInspectionCriteriaBatch = async (criteriaByInspectionArray: CriteriaByInspection[], inspectionId: string) => {
   // First, check if criteria for this inspection already exist
-  const checkResponse = await fetch(`http://localhost:8084/criteria_by_inspection/inspection/${inspectionId}`, {
+  const checkResponse = await fetch(`http://joey-api.vucar.vn/criteria_by_inspection/inspection/${inspectionId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -18,7 +18,7 @@ export const getAndCreateInspectionCriteriaBatch = async (criteriaByInspectionAr
   }
 
   // If no criteria exist or the check failed, proceed with creating new criteria
-  const createResponse = await fetch(`http://localhost:8084/criteria_by_inspection/inspection/${inspectionId}/batch`, {
+  const createResponse = await fetch(`http://joey-api.vucar.vn/criteria_by_inspection/inspection/${inspectionId}/batch`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

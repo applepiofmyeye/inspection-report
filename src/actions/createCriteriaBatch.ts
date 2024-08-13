@@ -3,7 +3,7 @@ interface Criteria {
 }
 
 export const createCriteriaBatch = async (criteriaArray : Criteria[]) => {
-  const response = await fetch("http://localhost:8084/criteria/batch", {
+  const response = await fetch("http://joey-api.vucar.vn/criteria/batch", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

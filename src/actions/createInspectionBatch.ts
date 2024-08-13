@@ -3,7 +3,7 @@ import { InspectionFromDb } from "../types/inspection";
 
 export const createInspectionBatch = async (inspections: InspectionFromDb[]) => {
     try {
-      const response = await fetch("http://localhost:8084/inspections/batch", {
+      const response = await fetch("http://joey-api.vucar.vn/inspections/batch", {
     method: "POST",
         headers: {
           "Content-Type": "application/json",
