@@ -1,7 +1,8 @@
+import { serverEndpoint } from "../backendEndpoint";
 
 
 export const setCriteriaByInspection = async (criteriaId : string, inspectionId : string, score : number) => {
-  const response = await fetch("http://joey-api.vucar.vn/criteria_by_inspection/inspection/" + inspectionId , {
+  const response = await fetch(`${serverEndpoint}/criteria_by_inspection/inspection/${inspectionId}` , {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

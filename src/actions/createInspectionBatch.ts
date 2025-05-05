@@ -1,9 +1,10 @@
+import { serverEndpoint } from "../backendEndpoint";
 import { InspectionFromDb } from "../types/inspection";
 
 
 export const createInspectionBatch = async (inspections: InspectionFromDb[]) => {
     try {
-      const response = await fetch("http://joey-api.vucar.vn/inspections/batch", {
+      const response = await fetch(`${serverEndpoint}/inspections/batch`, { 
     method: "POST",
         headers: {
           "Content-Type": "application/json",

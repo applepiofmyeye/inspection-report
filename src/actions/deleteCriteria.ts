@@ -1,6 +1,8 @@
+import { serverEndpoint } from "../backendEndpoint";
+
 export const deleteCriteria = async ({id}: { id: string }) => {
     try {
-      const response = await fetch("http://joey-api.vucar.vn/criteria/" + id, {
+      const response = await fetch(`${serverEndpoint}/criteria/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

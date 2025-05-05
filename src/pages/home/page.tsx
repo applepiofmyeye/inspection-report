@@ -48,8 +48,15 @@ import { useCreateInspection } from "../../hooks/useCreateInspection";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState, useTransition } from "react";
 import { Trash } from "lucide-react";
+import { useSeedInspections } from "../../hooks/useSeedInspections";
 
 export default function HomePage() {
+  const {
+    mutate: seedInspection,
+    data: inspections,
+    isPending,
+  } = useSeedInspections();
+
   return (
     <div className="py-4 pt-32 px-20 space-y-4">
       <h1 className="text-4xl font-bold">inspection home page</h1>
@@ -57,7 +64,7 @@ export default function HomePage() {
         <SelectStatus />
         <AddInspectionDialog />
       </div>
-
+      <button onClick={() => seedInspection()}>Seed Inspections</button>
       <InspectionTable />
     </div>
   );
@@ -82,7 +89,7 @@ function SelectStatus() {
   };
 
   const onClear = () => {
-    setStatus(undefined);
+    setStatus(undefined); // Future work: change label back to "Filter by Status"
     setSearchParams((prevParams) => {
       const newParams = new URLSearchParams(prevParams);
       newParams.delete("status");

@@ -1,7 +1,8 @@
+import { serverEndpoint } from "../backendEndpoint";
 
 
 export const setInspectionStatus = async (inspectionId : string, status: string) => {
-  const response = await fetch("http://joey-api.vucar.vn/inspections/" + inspectionId , {
+  const response = await fetch(`${serverEndpoint}/inspections/${inspectionId}` , {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

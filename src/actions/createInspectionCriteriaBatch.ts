@@ -1,8 +1,9 @@
+import { serverEndpoint } from "../backendEndpoint";
 import { CriteriaByInspection } from "../types/criteria";
 
 export const getAndCreateInspectionCriteriaBatch = async (criteriaByInspectionArray: CriteriaByInspection[], inspectionId: string) => {
   // First, check if criteria for this inspection already exist
-  const checkResponse = await fetch(`http://joey-api.vucar.vn/criteria_by_inspection/inspection/${inspectionId}`, {
+  const checkResponse = await fetch(`${serverEndpoint}/criteria_by_inspection/inspection/${inspectionId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

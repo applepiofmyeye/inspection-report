@@ -1,6 +1,8 @@
+import { serverEndpoint } from "../backendEndpoint"
+
 export const createInspection = async (date: string, car: string, status: string) => {
     try {
-      const response = await fetch("http://joey-api.vucar.vn/inspections", {
+      const response = await fetch(`${serverEndpoint}/inspections`, { 
         method: "POST",
         headers: {
           "Content-Type": "application/json",
